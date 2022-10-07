@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Button from "./components/Button";
 import configs from "./configs/configs";
 import socketService from "./services/socketService";
 
@@ -23,7 +24,22 @@ const App = () => {
     return <div>Error!</div>;
   }
 
-  return <div>{!isLoading && "Home"}</div>;
+  return (
+    <div>
+      {!isLoading && (
+        <div className="flex flex-col min-h-screen bg-blue-900">
+          <div className="grow flex justify-center items-center">
+            <Button size="base" variant="filled">
+              Rules
+            </Button>
+            <Button size="large" variant="outlined">
+              Join
+            </Button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
 };
 
 export default App;

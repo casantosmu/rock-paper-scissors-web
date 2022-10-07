@@ -5,7 +5,11 @@ module.exports = {
     fontFamily: {
       sans: ["Barlow Semi Condensed", "sans-serif"],
     },
-    extend: {},
+    extend: {
+      boxShadow: {
+        focus: "0 0 0 .2rem",
+      },
+    },
   },
   plugins: [],
 };
