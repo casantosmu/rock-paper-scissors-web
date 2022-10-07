@@ -9,7 +9,7 @@ const HandChipSelect = ({ hands }: HandChipSelectProps): JSX.Element => {
   return (
     <>
       {hands.map((hand) => {
-        return <HandChip name={hand} isButton />;
+        return <HandChip name={hand} isButton key={hand} />;
       })}
     </>
   );

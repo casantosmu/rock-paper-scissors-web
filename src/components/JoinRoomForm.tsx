@@ -7,12 +7,12 @@ import Input from "./Input";
 const JoinRoomForm = () => {
   const [gameId, setGameId] = useState("");
   const { joinRoom } = useRoom();
-  const { error, isLoading, roomId } = useContext(RoomContext);
+  const { isLoading, roomId } = useContext(RoomContext);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (gameId.trim() || isLoading || error || !roomId) {
+    if (gameId.trim() && !isLoading && !roomId) {
       joinRoom(gameId);
     }
   };
@@ -39,7 +39,7 @@ const JoinRoomForm = () => {
         size="large"
         variant="outlined"
         style={{ margin: "0 auto" }}
-        disabled={isLoading || Boolean(error) || Boolean(roomId)}
+        disabled={!gameId.trim() || isLoading || Boolean(roomId)}
       >
         Join
       </Button>
