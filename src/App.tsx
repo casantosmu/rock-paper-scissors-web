@@ -1,14 +1,17 @@
 import { useContext, useEffect } from "react";
-import { HandChip } from "./components/HandChip";
-import Header from "./components/Header";
+import HandChipResults from "./components/HandChipsResult";
+import HandChipSelect from "./components/HandChipsSelect";
 import JoinRoomForm from "./components/JoinRoomForm";
 import configs from "./configs/configs";
+import SharedLayout from "./layouts/SharedLayout";
 import socketService from "./services/socketService";
+import MoveContext from "./store/Move/context/MoveContext";
 import useMove from "./store/Move/hooks/useMove";
 import RoomContext from "./store/Room/context/RoomContext";
 
 const App = () => {
   const { roomId, setIsLoading, error, setError } = useContext(RoomContext);
+  const { userHand } = useContext(MoveContext);
   const { updateRivalHand } = useMove();
 
   useEffect(() => {
@@ -32,19 +35,26 @@ const App = () => {
     return <div>Error!: {error}</div>;
   }
 
+  if (!roomId) {
+    return (
+      <SharedLayout>
+        <JoinRoomForm />
+      </SharedLayout>
+    );
+  }
+
+  if (!userHand) {
+    return (
+      <SharedLayout>
+        <HandChipSelect hands={[...configs.game.handNames]} />
+      </SharedLayout>
+    );
+  }
+
   return (
-    <div className="bg-blue-900">
-      <div className="flex flex-col min-h-screen w-full max-w-lg m-auto ">
-        <Header />
-        {roomId ? (
-          <HandChip name="paper" isButton />
-        ) : (
-          <div className="grow flex justify-center items-center">
-            <JoinRoomForm />
-          </div>
-        )}
-      </div>
-    </div>
+    <SharedLayout>
+      <HandChipResults />
+    </SharedLayout>
   );
 };
 
