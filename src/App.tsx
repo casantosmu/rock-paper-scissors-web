@@ -1,18 +1,18 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import Button from "./components/Button";
 import configs from "./configs/configs";
 import socketService from "./services/socketService";
+import RoomContext from "./store/Room/context/RoomContext";
 
 const App = () => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [isError, setIsError] = useState(false);
+  const { isLoading, setIsLoading, error, setError } = useContext(RoomContext);
 
   useEffect(() => {
     (async () => {
       try {
         await socketService.connect(configs.env.socketApiUrl);
       } catch {
-        setIsError(true);
+        setError("Ups! Something went wrong");
       } finally {
         setIsLoading(false);
       }
@@ -20,8 +20,8 @@ const App = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (isError) {
-    return <div>Error!</div>;
+  if (error) {
+    return <div>Error!: {error}</div>;
   }
 
   return (
