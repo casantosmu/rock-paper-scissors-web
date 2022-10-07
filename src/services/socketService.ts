@@ -8,13 +8,11 @@ class SocketService {
       this.socket = io(url);
 
       if (!this.socket) {
-        reject();
-        return;
+        return reject();
       }
 
       this.socket.on("connect", () => {
-        resolve(this.socket as Socket);
-        return;
+        return resolve(this.socket as Socket);
       });
 
       this.socket.on("connect_error", (error) => {
