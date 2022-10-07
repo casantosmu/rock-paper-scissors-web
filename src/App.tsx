@@ -1,4 +1,5 @@
 import { useContext, useEffect } from "react";
+import Header from "./components/Header";
 import JoinRoomForm from "./components/JoinRoomForm";
 import configs from "./configs/configs";
 import socketService from "./services/socketService";
@@ -25,14 +26,15 @@ const App = () => {
   }
 
   return (
-    <div>
-      {!isLoading && (
-        <div className="flex flex-col min-h-screen bg-blue-900">
+    <div className="bg-blue-900">
+      <div className="flex flex-col min-h-screen w-full max-w-lg m-auto ">
+        <Header />
+        {!isLoading && (
           <div className="grow flex justify-center items-center">
             <JoinRoomForm />
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 };
