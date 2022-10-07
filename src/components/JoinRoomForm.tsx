@@ -12,7 +12,7 @@ const JoinRoomForm = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (gameId.trim()) {
+    if (gameId.trim() || isLoading || error || !roomId) {
       joinRoom(gameId);
     }
   };
