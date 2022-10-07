@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import Button from "./components/Button";
 import configs from "./configs/configs";
 import socketService from "./services/socketService";
