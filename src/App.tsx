@@ -1,5 +1,6 @@
 import { useContext, useEffect } from "react";
 import Button from "./components/Button";
+import Input from "./components/Input";
 import configs from "./configs/configs";
 import socketService from "./services/socketService";
 import RoomContext from "./store/Room/context/RoomContext";
@@ -35,6 +36,9 @@ const App = () => {
             <Button size="large" variant="outlined">
               Join
             </Button>
+          </div>
+          <div className="grow flex justify-center items-center m-auto">
+            <Input id="game-id" />
           </div>
         </div>
       )}
