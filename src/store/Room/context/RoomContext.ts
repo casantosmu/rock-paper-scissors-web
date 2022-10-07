@@ -8,7 +8,8 @@ interface InitialRoomContext {
   roomId: string | null;
   setRoomId: Dispatch<SetStateAction<string | null>>;
   userScore: number;
-  setUserScore: Dispatch<SetStateAction<number>>;
+  incrementUserScore: () => void;
+  decrementUserScore: () => void;
 }
 
 const initialRoomContext: InitialRoomContext = {
@@ -19,7 +20,8 @@ const initialRoomContext: InitialRoomContext = {
   roomId: null,
   setRoomId: () => {},
   userScore: 0,
-  setUserScore: () => {},
+  incrementUserScore: () => {},
+  decrementUserScore: () => {},
 };
 
 const RoomContext = createContext(initialRoomContext);

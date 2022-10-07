@@ -7,6 +7,14 @@ const RoomContextProvier = ({ children }: PropsWithChildren): JSX.Element => {
   const [roomId, setRoomId] = useState<string | null>(null);
   const [userScore, setUserScore] = useState(0);
 
+  const incrementUserScore = () => {
+    setUserScore(userScore + 1);
+  };
+
+  const decrementUserScore = () => {
+    setUserScore(userScore - 1);
+  };
+
   return (
     <RoomContext.Provider
       value={{
@@ -17,7 +25,8 @@ const RoomContextProvier = ({ children }: PropsWithChildren): JSX.Element => {
         roomId,
         setRoomId,
         userScore,
-        setUserScore,
+        incrementUserScore,
+        decrementUserScore,
       }}
     >
       {children}
