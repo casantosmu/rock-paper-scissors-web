@@ -15,6 +15,7 @@ const configs = {
   },
   game: {
     handNames: ["scissors", "paper", "rock"],
+    results: ["victory", "draw", "defeat"],
   },
 } as const;
 
