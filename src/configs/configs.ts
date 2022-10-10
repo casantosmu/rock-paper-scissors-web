@@ -12,6 +12,12 @@ const configs = {
       update: "hand:update",
       updated: "hand:updated",
     },
+    move: {
+      starts: "move:starts",
+      uploadUserWaiting: "move:upload_user_waiting",
+      uploadUserWaitingError: "move:upload_user_waiting_error",
+      uploadUserWaitingSuccess: "move:upload_user_waiting_success",
+    },
     predefined: {
       connect: "connect",
       connectError: "connect_error",
