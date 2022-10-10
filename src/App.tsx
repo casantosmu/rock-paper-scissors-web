@@ -8,11 +8,12 @@ import socketService from "./services/socketService";
 import MoveContext from "./store/Move/context/MoveContext";
 import useMove from "./store/Move/hooks/useMove";
 import RoomContext from "./store/Room/context/RoomContext";
+import WaitingRoom from "./components/WaitingRoom";
 
 const App = () => {
   const { roomId, setIsLoading, error, setError } = useContext(RoomContext);
-  const { userHand } = useContext(MoveContext);
-  const { updateRivalHand } = useMove();
+  const { userHand, isStarted } = useContext(MoveContext);
+  const { updateRivalHand, handleMoveStarts } = useMove();
 
   useEffect(() => {
     (async () => {
@@ -29,7 +30,8 @@ const App = () => {
 
   useEffect(() => {
     updateRivalHand();
-  }, [updateRivalHand]);
+    handleMoveStarts();
+  }, [handleMoveStarts, updateRivalHand]);
 
   if (error) {
     return <div>Error!: {error}</div>;
@@ -39,6 +41,14 @@ const App = () => {
     return (
       <SharedLayout>
         <JoinRoomForm />
+      </SharedLayout>
+    );
+  }
+
+  if (!isStarted) {
+    return (
+      <SharedLayout>
+        <WaitingRoom />
       </SharedLayout>
     );
   }

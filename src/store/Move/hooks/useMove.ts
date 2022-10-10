@@ -6,7 +6,15 @@ import MoveContext from "../context/MoveContext";
 
 const useMove = () => {
   const socket = socketService.socket;
-  const { setUserHand, setRivalHand } = useContext(MoveContext);
+  const { setUserHand, setRivalHand, setIsStarted } = useContext(MoveContext);
+
+  const handleMoveStarts = () => {
+    if (socket) {
+      moveService.handleMoveStarts(socket, () => {
+        setIsStarted(true);
+      });
+    }
+  };
 
   const updateUserHand = (handName: HandNames) => {
     if (socket) {
@@ -21,7 +29,7 @@ const useMove = () => {
     }
   };
 
-  return { updateUserHand, updateRivalHand };
+  return { handleMoveStarts, updateUserHand, updateRivalHand };
 };
 
 export default useMove;
