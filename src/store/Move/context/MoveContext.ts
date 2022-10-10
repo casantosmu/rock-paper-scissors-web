@@ -8,6 +8,8 @@ interface InitialMoveContext {
   setRivalHand: Dispatch<SetStateAction<HandNames | null>>;
   result: ResultsTypes | null;
   setResult: Dispatch<SetStateAction<ResultsTypes | null>>;
+  isStarted: boolean;
+  setIsStarted: Dispatch<SetStateAction<boolean>>;
 }
 
 const initialMoveContext: InitialMoveContext = {
@@ -17,6 +19,8 @@ const initialMoveContext: InitialMoveContext = {
   setRivalHand: () => {},
   result: null,
   setResult: () => {},
+  isStarted: false,
+  setIsStarted: () => {},
 };
 
 const MoveContext = createContext(initialMoveContext);
