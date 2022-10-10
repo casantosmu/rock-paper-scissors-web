@@ -1,16 +1,16 @@
 import configs from "../configs/configs";
 import { Socket } from "socket.io-client";
 
-const { eventMessages } = configs;
+const { eventNames } = configs;
 
 class RoomService {
   public async joinGame(socket: Socket, gameId: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
-      socket.emit(eventMessages.room.joinBase, gameId);
-      socket.on(eventMessages.room.joinSucces, () => {
+      socket.emit(eventNames.room.joinBase, gameId);
+      socket.on(eventNames.room.joinSucces, () => {
         resolve(true);
       });
-      socket.on(eventMessages.room.joinError, () => {
+      socket.on(eventNames.room.joinError, () => {
         reject(false);
       });
     });
