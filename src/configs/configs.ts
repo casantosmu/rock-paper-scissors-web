@@ -2,15 +2,19 @@ const configs = {
   env: {
     socketApiUrl: `${process.env.REACT_APP_SOCKET_API_URL}`,
   },
-  eventMessages: {
+  eventNames: {
     room: {
-      joinBase: "join_game",
-      joinSucces: "join_game_success",
-      joinError: "join_game_error",
+      joinBase: "room:join",
+      joinSucces: "room:join_success",
+      joinError: "room:join_error",
     },
     hand: {
-      update: "move_hand_update",
-      updated: "move_hand_updated",
+      update: "hand:update",
+      updated: "hand:updated",
+    },
+    predefined: {
+      connect: "connect",
+      connectError: "connect_error",
     },
   },
   game: {

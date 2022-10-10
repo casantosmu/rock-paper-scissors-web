@@ -1,4 +1,7 @@
 import { io, Socket } from "socket.io-client";
+import configs from "../configs/configs";
+
+const { eventNames } = configs;
 
 class SocketService {
   public socket: Socket | null = null;
@@ -11,11 +14,11 @@ class SocketService {
         return reject();
       }
 
-      this.socket.on("connect", () => {
+      this.socket.on(eventNames.predefined.connect, () => {
         return resolve(this.socket as Socket);
       });
 
-      this.socket.on("connect_error", (error) => {
+      this.socket.on(eventNames.predefined.connectError, (error) => {
         reject(error);
       });
     });

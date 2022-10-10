@@ -2,18 +2,18 @@ import { Socket } from "socket.io-client";
 import configs from "../configs/configs";
 import { HandNames } from "../types/interfaces";
 
-const { eventMessages } = configs;
+const { eventNames } = configs;
 
 class MoveServices {
   public updateHand(socket: Socket, handName: HandNames): void {
-    socket.emit(eventMessages.hand.update, handName);
+    socket.emit(eventNames.hand.update, handName);
   }
 
   public handleUpdatedHand(
     socket: Socket,
     listener: (handName: HandNames) => void
   ): void {
-    socket.on(eventMessages.hand.updated, listener);
+    socket.on(eventNames.hand.updated, listener);
   }
 }
 
