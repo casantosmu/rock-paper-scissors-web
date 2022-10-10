@@ -9,6 +9,10 @@ class MoveServices {
     socket.emit(eventNames.move.uploadUserWaiting);
   }
 
+  handleMoveStarts(socket: Socket, listener: () => void) {
+    socket.on(eventNames.move.starts, listener);
+  }
+
   updateHand(socket: Socket, handName: HandNames) {
     socket.emit(eventNames.hand.update, handName);
   }
