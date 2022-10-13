@@ -56,7 +56,7 @@ const App = () => {
   if (!userHand) {
     return (
       <SharedLayout>
-        <HandChipSelect hands={[...configs.game.handNames]} />
+        <HandChipSelect />
       </SharedLayout>
     );
   }

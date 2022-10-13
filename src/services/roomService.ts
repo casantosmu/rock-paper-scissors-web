@@ -4,8 +4,8 @@ import { Socket } from "socket.io-client";
 const { eventNames } = configs;
 
 class RoomService {
-  public async joinGame(socket: Socket, gameId: string): Promise<boolean> {
-    return new Promise((resolve, reject) => {
+  joinGame(socket: Socket, gameId: string) {
+    return new Promise<boolean>((resolve, reject) => {
       socket.emit(eventNames.room.joinBase, gameId);
       socket.on(eventNames.room.joinSucces, () => {
         resolve(true);

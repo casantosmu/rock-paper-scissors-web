@@ -8,11 +8,11 @@ const RoomContextProvier = ({ children }: PropsWithChildren): JSX.Element => {
   const [userScore, setUserScore] = useState(0);
 
   const incrementUserScore = () => {
-    setUserScore(userScore + 1);
+    setUserScore((prev) => prev + 1);
   };
 
   const decrementUserScore = () => {
-    setUserScore(userScore - 1);
+    setUserScore((prev) => prev - 1);
   };
 
   return (

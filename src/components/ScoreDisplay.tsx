@@ -5,9 +5,11 @@ const ScoreDisplay = (): JSX.Element => {
   const { userScore } = useContext(RoomContext);
 
   return (
-    <div className="p-2 w-20 aspect-square bg-neutral-50 rounded-md shadow-md">
-      <span className="block text-center text-blue-800 text-sm">Score</span>
-      <span className="block text-center text-3xl tracking-tighter font-bold text-gray-800">
+    <div className="py-3 px-8 bg-neutral-50 rounded-md shadow-md">
+      <span className="block text-center text-blue-800 text-xs spacing tracking-wider uppercase">
+        Score
+      </span>
+      <span className="block text-center text-4xl tracking-wider font-bold text-neutral-600 ">
         {userScore}
       </span>
     </div>

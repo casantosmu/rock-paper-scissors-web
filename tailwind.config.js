@@ -9,6 +9,13 @@ module.exports = {
       boxShadow: {
         focus: "0 0 0 .2rem",
       },
+      borderWidth: {
+        3: "3px",
+      },
+      backgroundSize: {
+        "handchip-medium": "50px",
+        "handchip-large": "75px",
+      },
     },
   },
   plugins: [],
