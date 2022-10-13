@@ -6,14 +6,22 @@ const HandChipResults = (): JSX.Element => {
   const { userHand, rivalHand } = useContext(MoveContext);
 
   return (
-    <div className="flex justify-between items-end">
-      <div className="flex flex-col items-center gap-3">
-        <div className="grow">{userHand && <HandChip name={userHand} />}</div>
-        <span className="text-neutral-50">You picked</span>
+    <div className="flex justify-between max-w-md m-auto sm:max-w-none sm:m-0">
+      <div className="flex flex-col-reverse sm:flex-col items-center gap-6 sm:gap-10">
+        <span className="text-neutral-50 uppercase tracking-wider">
+          You picked
+        </span>
+        {userHand && <HandChip name={userHand} size="large" />}
       </div>
-      <div className="flex flex-col items-center gap-3">
-        {rivalHand ? <HandChip name={rivalHand} /> : <HandChipEmpty />}
-        <span className="text-neutral-50">The rival picked</span>
+      <div className="flex flex-col-reverse sm:flex-col items-center gap-6 sm:gap-10">
+        <span className="text-neutral-50 uppercase tracking-wider">
+          The rival picked
+        </span>
+        {rivalHand ? (
+          <HandChip name={rivalHand} size="large" />
+        ) : (
+          <HandChipEmpty />
+        )}
       </div>
     </div>
   );
