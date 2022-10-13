@@ -4,14 +4,22 @@ import iconPaper from "../assets/icon-paper.svg";
 import { HandNames } from "../types/interfaces";
 import useMove from "../store/Move/hooks/useMove";
 
+type Sizes = "medium" | "large";
+
 interface HandChipProps {
   name: HandNames;
   isButton?: boolean;
+  size?: Sizes;
 }
 
 interface HandChipStyles {
   image: string;
   borderColor: string;
+}
+
+interface SizeStyles {
+  border: string;
+  inner: string;
 }
 
 const handStylesMap: Record<HandNames, HandChipStyles> = {
@@ -29,7 +37,25 @@ const handStylesMap: Record<HandNames, HandChipStyles> = {
   },
 };
 
-export const HandChip = ({ name, isButton }: HandChipProps): JSX.Element => {
+const handChipSizeMap: Record<Sizes, SizeStyles> = {
+  medium: {
+    border:
+      "w-28 h-28 p-3 sm:w-32 sm:h-32 sm:p-4 shadow-[inset_0px_-6px_0px_rgb(0,0,0)]",
+    inner: "bg-handchip-medium shadow-[inset_0px_4px_0px_rgb(0,0,0)]",
+  },
+  large: {
+    border:
+      "w-28 h-28 p-3 sm:w-48 sm:h-48 sm:p-6 shadow-[inset_0px_-10px_0px_rgb(0,0,0)]",
+    inner:
+      "bg-handchip-medium sm:bg-handchip-large shadow-[inset_0px_8px_0px_rgb(0,0,0)]",
+  },
+};
+
+export const HandChip = ({
+  name,
+  isButton,
+  size = "medium",
+}: HandChipProps): JSX.Element => {
   const { updateUserHand } = useMove();
   const Component = isButton ? "button" : "span";
 
@@ -42,16 +68,15 @@ export const HandChip = ({ name, isButton }: HandChipProps): JSX.Element => {
   return (
     <Component
       onClick={handleClick}
-      className={`block ${handStylesMap[name].borderColor} w-24 h-24 p-3 rounded-full shadow-[inset_0px_-5px_0px_rgba(0,0,0,0.15)] shadow-neutral-800/20`}
+      className={`block ${handStylesMap[name].borderColor} ${handChipSizeMap[size].border} rounded-full shadow-neutral-800/30 focus:shadow-focus focus:shadow-neutral-50/50 outline-none`}
     >
       <span
         style={{
           backgroundImage: `url(${handStylesMap[name].image})`,
-          backgroundSize: "40px",
           backgroundRepeat: "no-repeat",
           backgroundPosition: "center",
         }}
-        className={`flex bg-neutral-50 p-4 aspect-square rounded-full shadow-[inset_0px_2px_0px_rgba(0,0,0,0.15)] shadow-neutral-800/40`}
+        className={`flex bg-neutral-50 p-4 aspect-square rounded-full shadow-neutral-800/30 ${handChipSizeMap[size].inner}`}
       >
         <span className="sr-only">{`${name} handsign`} </span>
       </span>
@@ -62,7 +87,9 @@ export const HandChip = ({ name, isButton }: HandChipProps): JSX.Element => {
 export const HandChipEmpty = (): JSX.Element => {
   return (
     <span
-      className={`block bg-neutral-800/30 w-20 h-20 p-2 rounded-full shadow-inner`}
+      className={
+        "block bg-neutral-800/30 w-24 h-24 sm:w-44 sm:h-44 p-2 rounded-full shadow-inner"
+      }
     ></span>
   );
 };
