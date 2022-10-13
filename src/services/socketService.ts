@@ -4,10 +4,10 @@ import configs from "../configs/configs";
 const { eventNames } = configs;
 
 class SocketService {
-  public socket: Socket | null = null;
+  socket: Socket | null = null;
 
-  public connect(url: string): Promise<Socket> {
-    return new Promise((resolve, reject) => {
+  connect(url: string) {
+    return new Promise<Socket>((resolve, reject) => {
       this.socket = io(url);
 
       if (!this.socket) {
