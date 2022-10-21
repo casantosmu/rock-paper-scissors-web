@@ -2,13 +2,13 @@ import { useContext, useEffect } from "react";
 import HandChipResults from "./components/HandChipsResult";
 import HandChipSelect from "./components/HandChipsSelect";
 import JoinRoomForm from "./components/JoinRoomForm";
-import SharedLayout from "./layouts/SharedLayout";
 import MoveContext from "./store/Move/context/MoveContext";
 import useMove from "./store/Move/hooks/useMove";
 import Loading from "./components/Loading";
 import useConnectSocket from "./hooks/useConnectSocket";
 import Error from "./components/Error";
 import useJoinRoom from "./hooks/useJoinRoom";
+import BaseLayout from "./layouts/BaseLayout";
 
 const App = () => {
   const { isConnecting, error: socketError } = useConnectSocket();
@@ -28,48 +28,48 @@ const App = () => {
 
   if (error) {
     return (
-      <SharedLayout>
+      <BaseLayout>
         <Error errorMessage={error}></Error>
-      </SharedLayout>
+      </BaseLayout>
     );
   }
 
   if (isConnecting) {
     return (
-      <SharedLayout>
+      <BaseLayout>
         <Loading loadingMessage="Connecting..." />;
-      </SharedLayout>
+      </BaseLayout>
     );
   }
 
   if (!isJoined) {
     return (
-      <SharedLayout>
+      <BaseLayout>
         <JoinRoomForm joinRoom={joinRoom} isJoining={isJoining} />
-      </SharedLayout>
+      </BaseLayout>
     );
   }
 
   if (!isStarted) {
     return (
-      <SharedLayout>
+      <BaseLayout>
         <Loading loadingMessage="Waiting for another player..." />
-      </SharedLayout>
+      </BaseLayout>
     );
   }
 
   if (!userHand) {
     return (
-      <SharedLayout>
+      <BaseLayout>
         <HandChipSelect />
-      </SharedLayout>
+      </BaseLayout>
     );
   }
 
   return (
-    <SharedLayout>
+    <BaseLayout>
       <HandChipResults />
-    </SharedLayout>
+    </BaseLayout>
   );
 };
 
