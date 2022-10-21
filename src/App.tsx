@@ -1,9 +1,7 @@
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 import HandChipResults from "./components/HandChipsResult";
 import HandChipSelect from "./components/HandChipsSelect";
 import JoinRoomForm from "./components/JoinRoomForm";
-import MoveContext from "./store/Move/context/MoveContext";
-import useMove from "./store/Move/hooks/useMove";
 import Loading from "./components/Loading";
 import useConnectSocket from "./hooks/useConnectSocket";
 import Error from "./components/Error";
@@ -11,21 +9,24 @@ import useJoinRoom from "./hooks/useJoinRoom";
 import RoomLayout from "./layouts/RoomLayout";
 import useUserScore from "./hooks/useUserScore";
 import GameLayout from "./layouts/MoveLayout";
+import useCurrentGame from "./hooks/useCurrentGame";
+import useCurrentHands from "./hooks/useCurrentHands";
 
 const App = () => {
   const { isConnecting, error: socketError } = useConnectSocket();
   const { isJoined, isJoining, error: joinError, joinRoom } = useJoinRoom();
   const { userScore } = useUserScore();
-  const { userHand, isStarted } = useContext(MoveContext);
-  const { updateRivalHand, handleMoveStarts } = useMove();
+  const { isStarted, gameStartsHandler } = useCurrentGame();
+  const { userHand, rivalHand, updateUserHand, rivalHandHandler } =
+    useCurrentHands();
 
   useEffect(() => {
-    handleMoveStarts();
-  }, [handleMoveStarts]);
+    gameStartsHandler();
+  }, [gameStartsHandler]);
 
   useEffect(() => {
-    updateRivalHand();
-  }, [updateRivalHand]);
+    rivalHandHandler();
+  }, [rivalHandHandler]);
 
   const error = socketError || joinError;
 
@@ -64,14 +65,14 @@ const App = () => {
   if (!userHand) {
     return (
       <GameLayout userScore={userScore}>
-        <HandChipSelect />
+        <HandChipSelect updateUserHand={updateUserHand} />
       </GameLayout>
     );
   }
 
   return (
     <GameLayout userScore={userScore}>
-      <HandChipResults />
+      <HandChipResults userHand={userHand} rivalHand={rivalHand} />
     </GameLayout>
   );
 };

@@ -1,17 +1,22 @@
-import { useContext } from "react";
-import MoveContext from "../store/Move/context/MoveContext";
+import { HandNames } from "../types/interfaces";
 import { HandChip, HandChipEmpty } from "./HandChip";
 
-const HandChipResults = (): JSX.Element => {
-  const { userHand, rivalHand } = useContext(MoveContext);
+interface HandChipResultsProps {
+  userHand: HandNames;
+  rivalHand: HandNames | null;
+}
 
+const HandChipResults = ({
+  userHand,
+  rivalHand,
+}: HandChipResultsProps): JSX.Element => {
   return (
-    <div className="flex justify-between max-w-md m-auto sm:max-w-none sm:m-0">
+    <div className="flex justify-between max-w-md sm:max-w-none m-auto sm:m-0">
       <div className="flex flex-col-reverse sm:flex-col items-center gap-6 sm:gap-10">
         <span className="text-neutral-50 uppercase tracking-wider">
           You picked
         </span>
-        {userHand && <HandChip name={userHand} size="large" />}
+        <HandChip name={userHand} size="large" />
       </div>
       <div className="flex flex-col-reverse sm:flex-col items-center gap-6 sm:gap-10">
         <span className="text-neutral-50 uppercase tracking-wider">
