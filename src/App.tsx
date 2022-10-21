@@ -6,8 +6,9 @@ import SharedLayout from "./layouts/SharedLayout";
 import MoveContext from "./store/Move/context/MoveContext";
 import useMove from "./store/Move/hooks/useMove";
 import RoomContext from "./store/Room/context/RoomContext";
-import WaitingRoom from "./components/WaitingRoom";
+import Loading from "./components/Loading";
 import useConnectSocket from "./hooks/useConnectSocket";
+import Error from "./components/Error";
 
 const App = () => {
   const { isConnecting, error: socketError } = useConnectSocket();
@@ -26,11 +27,19 @@ const App = () => {
   const error = socketError || joinError;
 
   if (error) {
-    return <SharedLayout>Error!: {error} </SharedLayout>;
+    return (
+      <SharedLayout>
+        <Error errorMessage={error}></Error>
+      </SharedLayout>
+    );
   }
 
   if (isConnecting) {
-    return <SharedLayout>Connecting... </SharedLayout>;
+    return (
+      <SharedLayout>
+        <Loading loadingMessage="Connecting..." />;
+      </SharedLayout>
+    );
   }
 
   if (!roomId) {
@@ -44,7 +53,7 @@ const App = () => {
   if (!isStarted) {
     return (
       <SharedLayout>
-        <WaitingRoom />
+        <Loading loadingMessage="Waiting for another player..." />
       </SharedLayout>
     );
   }
