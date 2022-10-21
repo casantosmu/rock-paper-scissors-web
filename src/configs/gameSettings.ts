@@ -1,6 +1,6 @@
 const gameSettings = {
   handNames: ["scissors", "paper", "rock"],
-  results: ["victory", "draw", "defeat"],
+  results: ["win", "draw", "lose"],
 } as const;
 
 export default gameSettings;

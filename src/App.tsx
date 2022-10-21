@@ -9,10 +9,13 @@ import useConnectSocket from "./hooks/useConnectSocket";
 import Error from "./components/Error";
 import useJoinRoom from "./hooks/useJoinRoom";
 import RoomLayout from "./layouts/RoomLayout";
+import useUserScore from "./hooks/useUserScore";
+import GameLayout from "./layouts/MoveLayout";
 
 const App = () => {
   const { isConnecting, error: socketError } = useConnectSocket();
   const { isJoined, isJoining, error: joinError, joinRoom } = useJoinRoom();
+  const { userScore } = useUserScore();
   const { userHand, isStarted } = useContext(MoveContext);
   const { updateRivalHand, handleMoveStarts } = useMove();
 
@@ -52,24 +55,24 @@ const App = () => {
 
   if (!isStarted) {
     return (
-      <RoomLayout>
+      <GameLayout userScore={userScore}>
         <Loading loadingMessage="Waiting for another player..." />
-      </RoomLayout>
+      </GameLayout>
     );
   }
 
   if (!userHand) {
     return (
-      <RoomLayout>
+      <GameLayout userScore={userScore}>
         <HandChipSelect />
-      </RoomLayout>
+      </GameLayout>
     );
   }
 
   return (
-    <RoomLayout>
+    <GameLayout userScore={userScore}>
       <HandChipResults />
-    </RoomLayout>
+    </GameLayout>
   );
 };
 
