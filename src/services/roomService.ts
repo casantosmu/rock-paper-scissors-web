@@ -1,7 +1,5 @@
-import configs from "../configs/configs";
 import { Socket } from "socket.io-client";
-
-const { eventNames } = configs;
+import eventNames from "../configs/eventNames";
 
 class RoomService {
   joinGame(socket: Socket, gameId: string) {

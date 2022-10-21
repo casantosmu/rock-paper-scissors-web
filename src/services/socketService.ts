@@ -1,7 +1,5 @@
 import { io, Socket } from "socket.io-client";
-import configs from "../configs/configs";
-
-const { eventNames } = configs;
+import eventNames from "../configs/eventNames";
 
 class SocketService {
   socket: Socket | null = null;
