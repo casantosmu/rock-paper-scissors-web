@@ -8,6 +8,7 @@ import useMove from "./store/Move/hooks/useMove";
 import RoomContext from "./store/Room/context/RoomContext";
 import WaitingRoom from "./components/WaitingRoom";
 import useConnectSocket from "./hooks/useConnectSocket";
+import Error from "./components/Error";
 
 const App = () => {
   const { isConnecting, error: socketError } = useConnectSocket();
@@ -26,7 +27,11 @@ const App = () => {
   const error = socketError || joinError;
 
   if (error) {
-    return <SharedLayout>Error!: {error} </SharedLayout>;
+    return (
+      <SharedLayout>
+        <Error errorMessage={error}></Error>
+      </SharedLayout>
+    );
   }
 
   if (isConnecting) {
