@@ -10,6 +10,7 @@ const useMove = () => {
 
   const handleMoveStarts = () => {
     if (socket) {
+      moveService.uploadUserWaiting(socket);
       moveService.handleMoveStarts(socket, () => {
         setIsStarted(true);
       });
