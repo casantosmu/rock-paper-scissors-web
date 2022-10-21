@@ -8,7 +8,7 @@ import Loading from "./components/Loading";
 import useConnectSocket from "./hooks/useConnectSocket";
 import Error from "./components/Error";
 import useJoinRoom from "./hooks/useJoinRoom";
-import BaseLayout from "./layouts/BaseLayout";
+import RoomLayout from "./layouts/RoomLayout";
 
 const App = () => {
   const { isConnecting, error: socketError } = useConnectSocket();
@@ -28,48 +28,48 @@ const App = () => {
 
   if (error) {
     return (
-      <BaseLayout>
+      <RoomLayout>
         <Error errorMessage={error}></Error>
-      </BaseLayout>
+      </RoomLayout>
     );
   }
 
   if (isConnecting) {
     return (
-      <BaseLayout>
+      <RoomLayout>
         <Loading loadingMessage="Connecting..." />;
-      </BaseLayout>
+      </RoomLayout>
     );
   }
 
   if (!isJoined) {
     return (
-      <BaseLayout>
+      <RoomLayout>
         <JoinRoomForm joinRoom={joinRoom} isJoining={isJoining} />
-      </BaseLayout>
+      </RoomLayout>
     );
   }
 
   if (!isStarted) {
     return (
-      <BaseLayout>
+      <RoomLayout>
         <Loading loadingMessage="Waiting for another player..." />
-      </BaseLayout>
+      </RoomLayout>
     );
   }
 
   if (!userHand) {
     return (
-      <BaseLayout>
+      <RoomLayout>
         <HandChipSelect />
-      </BaseLayout>
+      </RoomLayout>
     );
   }
 
   return (
-    <BaseLayout>
+    <RoomLayout>
       <HandChipResults />
-    </BaseLayout>
+    </RoomLayout>
   );
 };
 
