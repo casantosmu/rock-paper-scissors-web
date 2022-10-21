@@ -1,4 +1,4 @@
-import configs from "../configs/configs";
+import gameSettings from "../configs/gameSettings";
 
-export type HandNames = typeof configs.game.handNames[number];
-export type ResultsTypes = typeof configs.game.results[number];
+export type HandNames = typeof gameSettings.handNames[number];
+export type ResultsTypes = typeof gameSettings.results[number];

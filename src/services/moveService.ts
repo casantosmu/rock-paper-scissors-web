@@ -1,8 +1,6 @@
 import { Socket } from "socket.io-client";
-import configs from "../configs/configs";
+import eventNames from "../configs/eventNames";
 import { HandNames } from "../types/interfaces";
-
-const { eventNames } = configs;
 
 class MoveServices {
   uploadUserWaiting(socket: Socket) {

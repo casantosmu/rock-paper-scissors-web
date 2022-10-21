@@ -2,13 +2,13 @@ import { useContext, useEffect } from "react";
 import HandChipResults from "./components/HandChipsResult";
 import HandChipSelect from "./components/HandChipsSelect";
 import JoinRoomForm from "./components/JoinRoomForm";
-import configs from "./configs/configs";
 import SharedLayout from "./layouts/SharedLayout";
 import socketService from "./services/socketService";
 import MoveContext from "./store/Move/context/MoveContext";
 import useMove from "./store/Move/hooks/useMove";
 import RoomContext from "./store/Room/context/RoomContext";
 import WaitingRoom from "./components/WaitingRoom";
+import environmentVariables from "./configs/environmentVariables";
 
 const App = () => {
   const { roomId, setIsLoading, error, setError } = useContext(RoomContext);
@@ -18,7 +18,7 @@ const App = () => {
   useEffect(() => {
     (async () => {
       try {
-        await socketService.connect(configs.env.socketApiUrl);
+        await socketService.connect(environmentVariables.socketApiUrl);
       } catch {
         setError("Ups! Something went wrong");
       } finally {
