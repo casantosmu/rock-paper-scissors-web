@@ -1,24 +1,30 @@
-import { useContext, useState } from "react";
-import RoomContext from "../store/Room/context/RoomContext";
-import useRoom from "../store/Room/hooks/useRoom";
+import { useState } from "react";
+
 import Button from "./Button";
 import Input from "./Input";
 
-const JoinRoomForm = () => {
-  const [inputValue, setInputValue] = useState("");
-  const { joinRoom } = useRoom();
-  const { isLoading, roomId } = useContext(RoomContext);
+interface JoinRoomFormProps {
+  joinRoom: (roomId: string) => Promise<void>;
+  isJoining: boolean;
+}
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+const JoinRoomForm = ({ joinRoom, isJoining }: JoinRoomFormProps) => {
+  const [inputValue, setInputValue] = useState("");
+
+  const onSubmitForm = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (inputValue.trim() && !isLoading && !roomId) {
-      joinRoom(inputValue);
+    if (inputValue.trim() || !isJoining) {
+      await joinRoom(inputValue);
     }
   };
 
+  const onChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(event.target.value);
+  };
+
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={onSubmitForm}>
       <div className="pb-10">
         <label
           htmlFor="game-id"
@@ -26,20 +32,14 @@ const JoinRoomForm = () => {
         >
           Enter room ID to join the game
         </label>
-        <Input
-          id="game-id"
-          value={inputValue}
-          onChange={(event) => {
-            setInputValue(event.target.value);
-          }}
-        />
+        <Input id="game-id" value={inputValue} onChange={onChangeInput} />
       </div>
       <Button
         type="submit"
         size="large"
         variant="outlined"
         style={{ margin: "0 auto" }}
-        disabled={!inputValue.trim() || isLoading || Boolean(roomId)}
+        disabled={!inputValue.trim() || isJoining}
       >
         Join
       </Button>

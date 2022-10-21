@@ -5,14 +5,14 @@ import JoinRoomForm from "./components/JoinRoomForm";
 import SharedLayout from "./layouts/SharedLayout";
 import MoveContext from "./store/Move/context/MoveContext";
 import useMove from "./store/Move/hooks/useMove";
-import RoomContext from "./store/Room/context/RoomContext";
 import Loading from "./components/Loading";
 import useConnectSocket from "./hooks/useConnectSocket";
 import Error from "./components/Error";
+import useJoinRoom from "./hooks/useJoinRoom";
 
 const App = () => {
   const { isConnecting, error: socketError } = useConnectSocket();
-  const { roomId, error: joinError } = useContext(RoomContext);
+  const { isJoined, isJoining, error: joinError, joinRoom } = useJoinRoom();
   const { userHand, isStarted } = useContext(MoveContext);
   const { updateRivalHand, handleMoveStarts } = useMove();
 
@@ -42,10 +42,10 @@ const App = () => {
     );
   }
 
-  if (!roomId) {
+  if (!isJoined) {
     return (
       <SharedLayout>
-        <JoinRoomForm />
+        <JoinRoomForm joinRoom={joinRoom} isJoining={isJoining} />
       </SharedLayout>
     );
   }

@@ -1,9 +1,8 @@
-import { useContext } from "react";
-import RoomContext from "../store/Room/context/RoomContext";
+interface ScoreDisplayProps {
+  userScore: number;
+}
 
-const ScoreDisplay = (): JSX.Element => {
-  const { userScore } = useContext(RoomContext);
-
+const ScoreDisplay = ({ userScore }: ScoreDisplayProps): JSX.Element => {
   return (
     <div className="py-3 px-8 bg-neutral-50 rounded-md shadow-md">
       <span className="block text-center text-blue-800 text-xs spacing tracking-wider uppercase">
